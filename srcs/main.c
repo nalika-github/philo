@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ptungbun <ptungbun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:35:27 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/05/13 14:57:31 by ptungbun         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:20:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 int	main(int argc, char **argv)
 {
+	t_rule	rule;
+
 	if (argc != 5)
 		return (0);
-	if (data_init(&data, av) == 1)
+	if (philo_init(&rule, argv) == 1)
 	{
-		free();
+		free(rule);
 		return (0);
 	}
-	philo();
-	free_philo();
+	// philo();
+	// free_philo();
 	return(0);
 }
