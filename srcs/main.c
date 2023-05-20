@@ -6,24 +6,33 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:35:27 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/05/17 15:40:19 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/19 16:36:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo.h>
+#include "philo.h"
 
 int	main(int argc, char **argv)
 {
-	t_rule	rule;
+	t_rule	*rule;
+	t_philo	*philo;
+	int		i;
 
-	if (argc != 5)
+	if (argc != 6)
 		return (0);
-	if (philo_init(&rule, argv))
+	rule = malloc(sizeof(t_rule));
+	philo = philo_init(rule, argv);
+	if(!philo)
 	{
-		free_philo(rule);
+		// free_philo(&rule, &philo);
 		return (0);
 	}
-	// philo_life();
-	// free_philo();
+	i = 0;
+	while(i < rule->n_philo)
+	{
+		pthread_join(philo[i].phi, NULL);
+		i++;
+	}
+	// free_philo(&rule, &philo);
 	return(0);
 }

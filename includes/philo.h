@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:34 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/05/17 14:51:12 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/20 19:31:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 
 // Define Constant
 
-# define INT_MAX 2147483647
-# define INT_MIN -2147483648
 # define TRUE 1
 # define FALSE 0
 
@@ -40,14 +38,24 @@ typedef struct s_rule
 	int	t_eat;
 	int	t_sleep;
 	int	n_eat;
+	int t_start;
 }	t_rule;
 
 typedef struct s_philo
 {
 	int				tag;
-	pthread_t		philo;
-	pthread_mutex_t	my_fork;
-	pthread_mutex_t	friend_fork;
+	int				last_eat;
+	pthread_t		phi;
+	pthread_mutex_t	r_fork;
+	pthread_mutex_t	*l_fork;
 }	t_philo;
 
+typedef struct s_arg_rotine
+{
+	t_rule	*a_rule;
+	t_philo	*a_philo;
+}	t_arg_rotine;
+
+t_philo	*philo_init(t_rule *rule, char **argv);
+void	*philo_rotine();
 #endif
