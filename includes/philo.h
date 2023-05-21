@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:34 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/05/20 19:31:21 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/21 17:39:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,36 @@
 
 typedef struct s_rule
 {
+	pthread_mutex_t	util_mutex;
 	int	n_philo;
 	int	t_die;
 	int	t_eat;
 	int	t_sleep;
 	int	n_eat;
-	int t_start;
 }	t_rule;
 
 typedef struct s_philo
 {
 	int				tag;
 	int				last_eat;
+	int				is_die;
+	t_rule			*rule_book;
+	t_time			*clock;
 	pthread_t		phi;
 	pthread_mutex_t	r_fork;
 	pthread_mutex_t	*l_fork;
 }	t_philo;
 
-typedef struct s_arg_rotine
+typedef struct s_time
 {
-	t_rule	*a_rule;
-	t_philo	*a_philo;
-}	t_arg_rotine;
+	long long	t_start;
+	long long	t_current;
+	long long	philo_time;
+}	t_time;
+
+// Define Function
 
 t_philo	*philo_init(t_rule *rule, char **argv);
 void	*philo_rotine();
+
 #endif
