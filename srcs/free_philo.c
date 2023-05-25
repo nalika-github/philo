@@ -6,9 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:54:34 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/05/18 18:10:05 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/25 13:29:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+void	free_all(t_psychopomp *pys);
+{
+	
+}

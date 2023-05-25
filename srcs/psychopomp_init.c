@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_rotine.c                                     :+:      :+:    :+:   */
+/*   psychopomp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/17 15:08:53 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/05/21 18:05:09 by marvin           ###   ########.fr       */
+/*   Created: 2023/05/23 12:08:23 by ptungbun          #+#    #+#             */
+/*   Updated: 2023/05/25 15:59:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	do_rotine(t_philo philo)
+void	who_die(void *vp_psychopomp)
 {
-	int	end_case;
+	int				i;
+	t_psychopomp	*psy;
 
-	pthread_mutex_unlock(&(philo.rule->util_mutex));
-	end_case = 0;
-	while(!end_case)
+	psy = (t_psy *)vp_psy;
+	i = 0;
+	while(i < psy->rule_book->n_philo && pys->rule_book.is_end == 0)
 	{
-		if(!end_case)
-			end_case = philo_sleep(philo);
-		if(!end_case)
-			end_case = philo_think(philo);
-		if(!end_case)
-			end_case = philo_eat(philo);
+		if (is_die((psy->lst_philo)[i]))
+			pys->rule_book.is_end = 1;
+		if (is_limit((psy->lst_philo)[i]))
+			pys->rule_book.is_end = 2;
+		i++;
 	}
-	// print(end_case);
-	return;
-}
-
-void	*philo_rotine(void *vp_philo)
-{
-	t_philo	philo;
-
-	philo = *(t_philo *)vp_philo;
-	do_rotine(philo);
+	if (pys->rule_book.is_end == 1)
+		print(&((psy->lst_philo)[i - 1]), "died\n");
 }
