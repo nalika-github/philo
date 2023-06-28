@@ -1,32 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   psychopomp.c                                       :+:      :+:    :+:   */
+/*   check_end_loop.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 12:08:23 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/05/25 15:59:08 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/28 10:45:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	who_die(void *vp_psychopomp)
+static int destroy_fork(t_rule *rule)
 {
-	int				i;
-	t_psychopomp	*psy;
+	int	i;
 
-	psy = (t_psy *)vp_psy;
 	i = 0;
-	while(i < psy->rule_book->n_philo && pys->rule_book.is_end == 0)
+	while (i < rule->n_philo)
 	{
-		if (is_die((psy->lst_philo)[i]))
-			pys->rule_book.is_end = 1;
-		if (is_limit((psy->lst_philo)[i]))
-			pys->rule_book.is_end = 2;
+		if(pthread_mutex_destroy(&rule->philo[i].r_fork) != 0)
+			return (4);
 		i++;
 	}
-	if (pys->rule_book.is_end == 1)
-		print(&((psy->lst_philo)[i - 1]), "died\n");
+	return (0);
+}
+
+int	check_end_loop(t_rule *rule)
+{
+	int			i;
+	t_philo		*philo;
+
+	philo = rule->philo;
+	i = 0;
+	while (rule->is_end == 0 && rule->full_count < rule->n_philo)
+	{
+		if(i > rule->n_philo)
+		{
+			usleep(1000);
+			i = 0;
+		}
+		if(rule->t_die < get_time() - philo[i].last_eat && \
+		philo[i].eat_count < rule->n_eat)
+		{
+			rule->is_end = 1;
+			philo_print(REDB ,ADE, philo[i], rule);
+		}
+	}
+	return (destroy_fork(rule));
 }

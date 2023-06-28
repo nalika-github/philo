@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:34 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/05/25 15:26:29 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/28 10:45:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PHILO_H
 
 
-// ---Standard Header---
+/* Standard Header  */
 
 # include <pthread.h>
 # include <stdio.h>
@@ -24,60 +24,86 @@
 # include <sys/time.h>
 # include <limits.h>
 
-// Define Structure
+/* text color */
+#define RED "\e[0;31m"
+#define GRN "\e[0;32m"
+#define YEL "\e[0;33m"
+#define BLU "\e[0;34m"
+#define PUR "\e[0;35m"
+#define CYN "\e[0;36m"
+#define WHT "\e[0;37m"
+
+/* bold text color */
+
+#define REDB "\e[1;31m"
+#define GRNB "\e[1;32m"
+#define YELB "\e[0;33m"
+#define BLUB "\e[1;34m"
+#define PURB "\e[1;35m"
+#define CYNB "\e[1;36m"
+#define WHTB "\e[1;37m"
+
+/* Philo Action */
+
+#define ATF "has taken a fork"
+#define ADF "has drop a fork"
+#define AET "is eating"
+#define ASP "is sleeping"
+#define ATK "is thinking"
+#define ADE "is died"
+
+/*  Define Structure  */
+
+typedef struct s_philo
+{
+	int				id;
+	int				eat_count;
+	long			last_eat;
+	pthread_t		phi;
+	pthread_mutex_t	r_fork;
+	pthread_mutex_t	*l_fork;
+}	t_philo;
 
 typedef struct s_rule
 {
+	int				arg_id;
 	int				n_philo;
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
 	int				n_eat;
 	int				is_end;
+	int				full_count;
+	t_philo			*philo;
+	long			t_start;
 	pthread_mutex_t	m_all;
 }	t_rule;
 
-typedef struct s_psychopomp
-{
-	t_philo			*lst_philo;
-	t_rule			*rule_book;
-	t_time			*clock;
-	pthread_t		dead;
-}	t_psychopomp;
+/*  main.c  */
 
-typedef struct s_philo
-{
-	int				tag;
-	long long		last_eat;
-	t_rule			*rule_book;
-	t_time			*clock;
-	pthread_t		phi;
-	pthread_mutex_t	r_fork;
-	pthread_mutex_t	*l_fork;
-}	t_philo;
+int			ft_status(int status);
+int			clear_mem(t_rule *rule);
 
-typedef struct s_time
-{
-	long long	t_start;
-	long long	t;
-}	t_time;
+/*  var_init.c  */
 
-// fuction in philo_init.c file
+int			var_init(t_rule *rule, int argc, char **argv);
 
-t_philo	*philo_init(t_rule *rule, t_time *time, int argc, char **argv)
+/*  mini_lib.c  */
 
-// fuction in philo_action.c file
+int			ft_atoi(const char *str);
+long		get_time(void);
+void 		philo_print(char *color, char *act ,t_philo philo, t_rule *rule);
 
-int		philo_sleep(t_philo *philo);
-int		philo_think(t_philo *philo);
-int		philo_eat(t_philo *philo);
+/*  arg_consideration.c  */
 
-// fuction in philo_rotine.c file
+int			arg_consideration(int argc, char **argv);
 
-int	var_init(t_psychopomp *psy, int argc, char **argv)
+/*  thread_init.c  */
 
-// fuction in philo_rotine.c file
+int			thread_init(t_rule *rule);
 
-void	*philo_rotine(void *vp_philo);
+/*  check_end_loop.c  */
+
+int			check_end_loop(t_rule *rule);
 
 #endif

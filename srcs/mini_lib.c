@@ -1,14 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   mini_lib.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 19:35:27 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/05/20 19:36:58 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/26 17:30:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philo.h"
 
 static int	sign_toint(char c)
 {
@@ -50,4 +52,20 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (num * sign);
+}
+
+long	get_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec * 0.001));
+}
+
+void philo_print(char *color, char *act ,t_philo philo, t_rule *rule)
+{
+	pthread_mutex_lock(&rule->m_all);
+	printf("%s%ld %d %s%s\n", color, get_time() - rule->t_start\
+	, philo.id, act, "\e[0m");
+	pthread_mutex_unlock(&rule->m_all);
 }

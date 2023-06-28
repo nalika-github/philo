@@ -6,42 +6,54 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:35:27 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/05/25 15:58:24 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/26 15:11:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	end(t_psychopompc *psy)
-{
-	int		i;
-
-	i = 0;
-	while(i < psy->rule.n_philo)
-	{
-		if (pthread_join(&psy->philo[i].phi, NULL) != 0)
-			return (1);
-		pthread_mutex_destroy(&psy->philo[i].phi, NULL);
-		i++;
-	}
-	if (pthread_join(&psy->dead, NULL) != 0)
-		return (1);
-	pthread_mutex_destroy(&psy->dead, NULL);
-	return(free_all(psy));
-}
-
 int	main(int argc, char **argv)
 {
-	t_psychopomp	*psy;
-	int				i;
+	t_rule	*rule;
+	int		status;
 
-	if (argc >= 5 && argc <= 6)
-		return (0);
-	psy = malloc(sizeof(t_psychopomp));
-	if (!psy)
-		return (0);
-	var_init(psy, argc, argv);
-	philo_init(psy->lst_philo);
-	psychopomp_init(psy);
-	return(end(psy));
+	status = 0;
+	status = arg_consideration(argc, argv);
+	if (status == 0)
+	{
+		rule = malloc(sizeof(t_rule));
+		if(!rule)
+			return (1);
+	}
+	if (status == 0)
+		status = var_init(rule, argc, argv);
+	if (status == 0)
+		status = thread_init(rule);
+	if (status == 0)
+		status = check_end_loop(rule);
+	if (status != 0)
+		return (ft_status(status));
+	if (status > 1)
+		clear_mem(rule);
+	return (0);
 }
+
+int	ft_status(int status)
+{
+	if (status == 2)
+		printf("Error: There're something worng in var_init\n");
+	if (status == 3)
+		printf("Error: There're something worng in thread_init\n");
+	if (status == 4)
+		printf("Error: There're something worng in check_end_loop\n");
+	return (1);
+}
+
+int	clear_mem(t_rule *rule)
+{
+	free(rule->philo);
+	free(rule);
+	return(0);
+}
+
+
