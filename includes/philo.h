@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:34 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/06/28 10:45:44 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/28 11:15:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@
 /* Philo Action */
 
 #define ATF "has taken a fork"
-#define ADF "has drop a fork"
 #define AET "is eating"
 #define ASP "is sleeping"
 #define ATK "is thinking"

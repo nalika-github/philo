@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 12:08:23 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/06/28 10:45:42 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/29 13:16:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,19 @@ static int destroy_fork(t_rule *rule)
 {
 	int	i;
 
+	pthread_mutex_lock(&rule->m_all);
 	i = 0;
 	while (i < rule->n_philo)
 	{
+		pthread_mutex_unlock(&rule->philo[i].r_fork);
 		if(pthread_mutex_destroy(&rule->philo[i].r_fork) != 0)
+		{
+			pthread_mutex_unlock(&rule->m_all);
 			return (4);
+		}
 		i++;
 	}
+	pthread_mutex_unlock(&rule->m_all);
 	return (0);
 }
 
@@ -37,7 +43,7 @@ int	check_end_loop(t_rule *rule)
 	{
 		if(i > rule->n_philo)
 		{
-			usleep(1000);
+			usleep(5000);
 			i = 0;
 		}
 		if(rule->t_die < get_time() - philo[i].last_eat && \

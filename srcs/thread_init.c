@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:55:33 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/06/28 10:38:24 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/29 13:01:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,22 @@ static void	rotine_loop(t_rule *rule, int i, t_philo *philo)
 {
 	while (!rule->is_end && (philo[i].eat_count < rule->n_eat))
 	{
-		philo_print(YELB, ATK, philo[i], rule);
+		if (!rule->is_end && (philo[i].eat_count < rule->n_eat))
+			philo_print(YELB, ATK, philo[i], rule);
 		if (!take_fork(rule, i, philo))
 			return;
-		philo_print(CYNB, AET, philo[i], rule);
+		if (!rule->is_end && (philo[i].eat_count < rule->n_eat))
+			philo_print(CYNB, AET, philo[i], rule);
 		if(rule->n_eat > 0)
 			philo[i].eat_count = philo[i].eat_count + 1;
 		if(wait_n_check(rule, rule->t_eat))
 			return;
 		if (rule->is_end == 1 || pthread_mutex_unlock(&philo[i].r_fork) != 0)
 			return;
-		philo_print(GRN, ADF, philo[i], rule);
 		if (rule->is_end == 1 || pthread_mutex_unlock(philo[i].l_fork) != 0)
 			return;
-		philo_print(GRN, ADF, philo[i], rule);
-		philo_print(WHTB, ASP, philo[i], rule);
+		if (!rule->is_end && (philo[i].eat_count < rule->n_eat))
+			philo_print(WHTB, ASP, philo[i], rule);
 		if(wait_n_check(rule, rule->t_sleep))
 			return;
 	}
