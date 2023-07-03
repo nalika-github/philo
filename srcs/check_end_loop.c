@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 12:08:23 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/06/29 13:16:06 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/03 14:05:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ static int destroy_fork(t_rule *rule)
 	i = 0;
 	while (i < rule->n_philo)
 	{
-		pthread_mutex_unlock(&rule->philo[i].r_fork);
-		if(pthread_mutex_destroy(&rule->philo[i].r_fork) != 0)
+		if (pthread_mutex_destroy(&rule->philo[i].r_fork) != 0)
 		{
 			pthread_mutex_unlock(&rule->m_all);
 			return (4);
@@ -34,24 +33,25 @@ static int destroy_fork(t_rule *rule)
 
 int	check_end_loop(t_rule *rule)
 {
-	int			i;
-	t_philo		*philo;
+	int		i;
+	t_philo	*philo;
 
 	philo = rule->philo;
 	i = 0;
 	while (rule->is_end == 0 && rule->full_count < rule->n_philo)
 	{
-		if(i > rule->n_philo)
+		if (i > rule->n_philo)
 		{
 			usleep(5000);
 			i = 0;
 		}
-		if(rule->t_die < get_time() - philo[i].last_eat && \
+		if (rule->t_die < get_time() - philo[i].last_eat && \
 		philo[i].eat_count < rule->n_eat)
 		{
 			rule->is_end = 1;
-			philo_print(REDB ,ADE, philo[i], rule);
+			philo_print_die(REDB ,ADE, philo[i], rule);
 		}
 	}
+	usleep(200);
 	return (destroy_fork(rule));
 }

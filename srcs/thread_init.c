@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:55:33 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/06/29 13:01:40 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/03 14:07:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	wait_n_check(t_rule *rule, long t_wait)
 	long	t_chk;
 
 	t_chk =  get_time();
-	while(!rule->is_end && get_time() - t_chk < t_wait)
+	while (!rule->is_end && get_time() - t_chk < t_wait)
 		usleep(200);
 	return (rule->is_end);
 }
@@ -41,23 +41,23 @@ static void	rotine_loop(t_rule *rule, int i, t_philo *philo)
 		if (!rule->is_end && (philo[i].eat_count < rule->n_eat))
 			philo_print(YELB, ATK, philo[i], rule);
 		if (!take_fork(rule, i, philo))
-			return;
+			return ;
 		if (!rule->is_end && (philo[i].eat_count < rule->n_eat))
 			philo_print(CYNB, AET, philo[i], rule);
 		if(rule->n_eat > 0)
 			philo[i].eat_count = philo[i].eat_count + 1;
-		if(wait_n_check(rule, rule->t_eat))
-			return;
+		if (wait_n_check(rule, rule->t_eat))
+			return ;
 		if (rule->is_end == 1 || pthread_mutex_unlock(&philo[i].r_fork) != 0)
-			return;
+			return ;
 		if (rule->is_end == 1 || pthread_mutex_unlock(philo[i].l_fork) != 0)
-			return;
+			return ;
 		if (!rule->is_end && (philo[i].eat_count < rule->n_eat))
 			philo_print(WHTB, ASP, philo[i], rule);
-		if(wait_n_check(rule, rule->t_sleep))
-			return;
+		if (wait_n_check(rule, rule->t_sleep))
+			return ;
 	}
-	return;
+	return ;
 }
 
 static void	*rotine(void *vp_rule)
@@ -80,12 +80,12 @@ int	thread_init(t_rule *rule)
 	int		i;
 
 	i = 0;
-	while(i < rule->n_philo)
+	while (i < rule->n_philo)
 	{
 		if (i == 0)
 			rule->t_start = get_time();
 		rule->arg_id = i;
-		if(pthread_create(&(rule->philo[i].phi), NULL, &rotine, rule))
+		if (pthread_create(&(rule->philo[i].phi), NULL, &rotine, rule))
 			return (3);
 		pthread_detach(rule->philo[i].phi);
 		i = i + 2;

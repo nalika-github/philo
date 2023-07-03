@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 11:45:34 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/06/28 11:15:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/02 21:54:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct s_rule
 
 /*  main.c  */
 
-int			ft_status(int status);
 int			clear_mem(t_rule *rule);
 
 /*  var_init.c  */
@@ -91,7 +90,11 @@ int			var_init(t_rule *rule, int argc, char **argv);
 
 int			ft_atoi(const char *str);
 long		get_time(void);
-void 		philo_print(char *color, char *act ,t_philo philo, t_rule *rule);
+
+/*  philo_print_die.c  */
+
+void		philo_print(char *color, char *act ,t_philo philo, t_rule *rule);
+void		philo_print_die(char *color, char *act ,t_philo philo, t_rule *rule);
 
 /*  arg_consideration.c  */
 

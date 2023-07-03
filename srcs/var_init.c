@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 14:21:53 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/06/28 10:39:49 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/03 14:06:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,16 @@ int	var_init(t_rule *rule, int argc, char **argv)
 {
 	if(!rule_set(rule, argc, argv))
 		return (2);
-	rule->philo = malloc(sizeof(t_philo) * (rule->n_philo));
+	rule->philo = malloc(sizeof(t_philo) * (rule->n_philo + 1));
 	if(!rule->philo)
 	{
 		free(rule);
-		return(2);
+		return (2);
 	}
 	if(!philo_set(rule))
 	{
 		free(rule);
-		return(2);
+		return (2);
 	}
 	return (0);
 }

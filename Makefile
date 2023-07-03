@@ -6,13 +6,13 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/05 11:19:31 by ptungbun          #+#    #+#              #
-#    Updated: 2023/06/24 22:15:44 by marvin           ###   ########.fr        #
+#    Updated: 2023/06/29 14:20:12 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
-CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -pthread
+CC			= cc
+CFLAGS		= -Wall -Werror -Wextra -g -pthread -fsanitize=address
 HEADER		= philo.h
 
 # Variable declaration of directory
@@ -23,7 +23,7 @@ SRC_DIR		= ./srcs
 # Variable declaration of file
 
 SRCS		=	arg_consideration.c main.c mini_lib.c var_init.c \
-				check_end_loop.c thread_init.c
+				check_end_loop.c thread_init.c philo_print.c
 OBJS		=	$(SRCS:%.c=$(BUILD_DIR)/%.o)
 
 # Variable declaration of linking lib
