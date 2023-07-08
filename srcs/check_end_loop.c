@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 12:08:23 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/07/03 14:05:10 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/08 13:55:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int destroy_fork(t_rule *rule)
+static int	destroy_fork(t_rule *rule)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ int	check_end_loop(t_rule *rule)
 		philo[i].eat_count < rule->n_eat)
 		{
 			rule->is_end = 1;
-			philo_print_die(REDB ,ADE, philo[i], rule);
+			philo_print_die(REDB, ADE, philo[i], rule);
 		}
 	}
 	usleep(200);

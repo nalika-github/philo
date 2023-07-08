@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 14:21:53 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/07/03 14:06:53 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/08 13:57:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static int	rule_set(t_rule *rule, int argc, char **argv)
 {
-	if(pthread_mutex_init(&(rule->m_all), NULL) != 0)
+	if (pthread_mutex_init(&(rule->m_all), NULL) != 0)
 		return (0);
 	rule->n_philo = ft_atoi(argv[1]);
 	rule->t_die = ft_atoi(argv[2]);
 	rule->t_eat = ft_atoi(argv[3]);
 	rule->t_sleep = ft_atoi(argv[4]);
 	rule->full_count = 0;
-	if(argc == 5)
+	if (argc == 5)
 		rule->n_eat = -1;
 	else
 		rule->n_eat = ft_atoi(argv[5]);
@@ -36,11 +36,11 @@ static int	philo_set(t_rule *rule)
 
 	philo = rule->philo;
 	i = 0;
-	while(i < rule->n_philo)
+	while (i < rule->n_philo)
 	{
 		if (pthread_mutex_init(&(philo[i].r_fork), NULL) != 0)
 			return (0);
-		if(i == rule->n_philo - 1)
+		if (i == rule->n_philo - 1)
 			philo[i].l_fork = &philo[0].r_fork;
 		else
 			philo[i].l_fork = &philo[i + 1].r_fork;
@@ -56,15 +56,15 @@ static int	philo_set(t_rule *rule)
 
 int	var_init(t_rule *rule, int argc, char **argv)
 {
-	if(!rule_set(rule, argc, argv))
+	if (!rule_set(rule, argc, argv))
 		return (2);
 	rule->philo = malloc(sizeof(t_philo) * (rule->n_philo + 1));
-	if(!rule->philo)
+	if (!rule->philo)
 	{
 		free(rule);
 		return (2);
 	}
-	if(!philo_set(rule))
+	if (!philo_set(rule))
 	{
 		free(rule);
 		return (2);

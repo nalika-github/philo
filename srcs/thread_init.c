@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:55:33 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/07/03 14:07:42 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/08 13:56:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	wait_n_check(t_rule *rule, long t_wait)
 {
 	long	t_chk;
 
-	t_chk =  get_time();
+	t_chk = get_time();
 	while (!rule->is_end && get_time() - t_chk < t_wait)
 		usleep(200);
 	return (rule->is_end);
@@ -44,7 +44,7 @@ static void	rotine_loop(t_rule *rule, int i, t_philo *philo)
 			return ;
 		if (!rule->is_end && (philo[i].eat_count < rule->n_eat))
 			philo_print(CYNB, AET, philo[i], rule);
-		if(rule->n_eat > 0)
+		if (rule->n_eat > 0)
 			philo[i].eat_count = philo[i].eat_count + 1;
 		if (wait_n_check(rule, rule->t_eat))
 			return ;

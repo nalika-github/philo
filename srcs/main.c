@@ -6,9 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 14:35:27 by ptungbun          #+#    #+#             */
-/*   Updated: 2023/07/03 14:06:37 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/08 13:56:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philo.h"
 
 #include "philo.h"
 
@@ -42,5 +44,3 @@ int	clear_mem(t_rule *rule)
 	free(rule);
 	return (0);
 }
-
-
