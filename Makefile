@@ -6,13 +6,13 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/05 11:19:31 by ptungbun          #+#    #+#              #
-#    Updated: 2023/06/29 14:20:12 by marvin           ###   ########.fr        #
+#    Updated: 2023/07/08 17:01:10 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -g -pthread -fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra -g -pthread
 HEADER		= philo.h
 
 # Variable declaration of directory
